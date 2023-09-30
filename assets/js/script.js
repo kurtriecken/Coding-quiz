@@ -5,6 +5,7 @@ const ansButton1 = document.getElementById("button_1");
 const ansButton2 = document.getElementById("button_2");
 const ansButton3 = document.getElementById("button_3");
 const ansButton4 = document.getElementById("button_4");
+const submitButton = document.getElementById("submit");
 const backButton = document.getElementById("back");
 const clearScoresButton = document.getElementById("clear_scores");
 const HSButton = document.getElementById("view_scores");
@@ -17,33 +18,33 @@ const questionText = document.getElementById("question_text");
 const choices = document.getElementById("choice_wrapper");
 const initialsEntry = document.getElementById("initials_entry");
 const scoreText = document.getElementById("score_text");
+const initials = document.getElementById("initials");
 const qResult = document.getElementById("question_result");
 const highScores = document.getElementById("high_scores");
 
 const grave = new Audio("./assets/audio/grave.wav");
 const sparkle = new Audio("./assets/audio/sparkle.mp3");
 const buzz = new Audio("./assets/audio/buzz.mp3");
-grave.volume = 0.1;
 
 // Quiz questions
 let quizQuestions = 
   [
     {
-      question: "What is your name?",
-      answers: ["Your mom", "Steve", "Mr. Bigglesworth", "Bonko"],
-      solution: "Bonko"
+      question: "Which of these signifies an id in HTML?",
+      answers: ["#", ".", "_", "*"],
+      solution: "#"
     },
 
     {
-      question: "What is your problem?",
-      answers: ["Nothing", "What's it to you?", "idk", "I have an astigmatism"],
-      solution: "idk"
+      question: "Which of these is NOT a semantic HTML element?",
+      answers: ["main", "div", "header", "section"],
+      solution: "div"
     },
 
     {
-      question: "Who do you think you are?",
-      answers: ["Steve Jobs", "Jeve Stobs", "Stove Jebs", "Bonko"],
-      solution: "Stove Jebs"
+      question: "Which of these, when added to justify-content, will put the same spacing between items?",
+      answers: ["space-evenly", "space-around", "space-between", "center"],
+      solution: "space-evenly"
     }
   ];
 
@@ -192,6 +193,13 @@ choices.addEventListener("mouseover", function(e) {
     return;
   }
   qResult.setAttribute("hidden", "hidden");
+})
+
+submitButton.addEventListener("click", function(e) {
+  var score = {
+    initials: initials.value.trim()
+  };
+  console.log(score.initials);
 })
 
 init();

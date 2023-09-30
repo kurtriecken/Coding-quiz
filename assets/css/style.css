@@ -1,6 +1,7 @@
 * {
     padding: 3px;
     margin: auto;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 [hidden] {
@@ -40,6 +41,10 @@ button:hover {
     background-color: pink;
 }
 
+h1 {
+    font-size: xx-large;
+}
+
 h1, #welcome_details {
     text-align: center;
 }
@@ -53,6 +58,10 @@ h1, #welcome_details {
     display: flex;
     margin: auto;
     flex-direction: column;
+}
+
+h2 {
+    font-size: x-large;
 }
 
 #question_text, #choice_wrapper {
