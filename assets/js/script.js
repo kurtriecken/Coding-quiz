@@ -1,5 +1,6 @@
 const center = document.getElementById("center_card");
 const button = document.getElementById("start");
+const backButton = document.getElementById("back");
 let welcome = document.createElement("h1");
 let choices = ["choice 1", "choice 2", "choice 3", "choice 4"];
 
@@ -7,6 +8,7 @@ welcome.innerHTML = `Welcome to the coding quiz!`;
 center.insertBefore(welcome, center.children[0]);
 
 button.addEventListener("click", addButtons);
+backButton.addEventListener("click", putBack);
 
 function addButtons() {
     removeFunction();
@@ -19,7 +21,11 @@ function addButtons() {
 }
 
 function removeFunction() {
-    button.remove();
+    button.className = "hidden";
+}
+
+function putBack() {
+    button.className = "shown";
 }
 
 function changeText() {

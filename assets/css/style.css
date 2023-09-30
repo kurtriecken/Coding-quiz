@@ -16,3 +16,11 @@ button {
     display: flex;
     background-color: blue;
 }
+
+.shown {
+    display: flex;
+}
+
+.hidden {
+    display: none;
+}
