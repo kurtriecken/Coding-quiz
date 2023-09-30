@@ -1,42 +1,57 @@
 // Global variables
+// Buttons
 const startButton = document.getElementById("start");
+const ans1Button = document.getElementById("button_1");
+const ans2Button = document.getElementById("button_2");
+const ans3Button = document.getElementById("button_3");
+const ans4Button = document.getElementById("button_4");
+const backButton = document.getElementById("back");
+const clearScoresButton = document.getElementById("clear_scores");
+const HSButton = document.getElementById("view_scores");
+
+// Sections to hide/unhide
 const welcome = document.getElementById("welcome_card");
 const qCard = document.getElementById("question_card");
-const butt_1 = document.getElementById("button_1");
-const butt_2 = document.getElementById("button_2");
-const butt_3 = document.getElementById("button_3");
-const butt_4 = document.getElementById("button_4");
+const choices = document.getElementById("choice_wrapper");
+const qResult = document.getElementById("question_result");
 const highScores = document.getElementById("high_scores");
 
 // functions
-function validateScore() {
-    console.log();
+// Was the answer right? Print result to bottom of screen
+function validateAnswer() {
+    qResult.removeAttribute("hidden");
 }
 
 function generateNewQuestion() {
   // change text in qCard to be a new question
+
 }
 
 function changeDisplay(e) {
-  let currButton = e.currentTarget;
+  let currButton = e.target;
 
+  // Click to start game
+  // Show next question with answers
   if (currButton === startButton) {
     welcome.setAttribute("hidden", "hidden");
     qCard.removeAttribute("hidden");
   }
-  else if (currButton === butt_1 || currButton === butt_2 ||
-           currButton === butt_3 || currButton === butt_4) {
+  else if (currButton === ans1Button || currButton === ans2Button ||
+           currButton === ans3Button || currButton === ans4Button) {
+            console.log(currButton);
+            validateAnswer();
             generateNewQuestion();
   }
   // Options:
-  // Click to start game
-    // Show next question with answers
+
 
   // CLick answer of a question
     // AT FINAL QUESTION, screen changes differently
   
   // On high score page, clicking to go back and restart quiz
     // Show home page again
+  
+  // On high score page, clicking to clear scores does so (local storage)
 }
 
 // Event listeners
@@ -44,70 +59,13 @@ startButton.addEventListener("click", function(event) {
   changeDisplay(event)
 });
 
-// var firstNameInput = document.querySelector("#first-name");
-// var lastNameInput = document.querySelector("#last-name");
-// var emailInput = document.querySelector("#email");
-// var passwordInput = document.querySelector("#password");
-// var signUpButton = document.querySelector("#sign-up");
+choices.addEventListener("click", function(event) {
+  let clickedOn = event.target.nodeName;
+  if (clickedOn !== 'BUTTON') {
+    return;
+  }
+  // event.stopPropagation();
+  console.log(event.target);
+  changeDisplay(event)
+});
 
-// signUpButton.addEventListener("click", function(event) {
-//   event.preventDefault();
-  
-//   // TODO: Create user object from submission
-//   var person = {
-//     firstName : firstNameInput.value.trim(),
-//     lastName : lastNameInput.value.trim(),
-//     email : email.value.trim(),
-//     password : passwordInput.value.trim()
-//   };
-
-  // TODO: Set new submission to local storage 
-  // localStorage.setItem("person", JSON.stringify(person));
-
-  // console.log(person);
-// });
-// const center = document.getElementById("center_card");
-// const button = document.getElementById("start");
-// const welcome = document.getElementById("welcome");
-// const backButton = document.getElementById("back");
-// let choices = ["choice 1", "choice 2", "choice 3", "choice 4"];
-
-
-// button.addEventListener("click", addButtons);
-// backButton.addEventListener("click", putBack);
-
-// function addButtons() {
-//     button.setAttribute("hidden", "hidden");
-//     // changeText();
-//     for (let i = 0; i < 4; i++) {
-//         let newButton = document.createElement("button");
-//         newButton.innerHTML = `${choices[i]}`
-//         center.appendChild(newButton);
-//     }
-// }
-
-// function removeFunction() {
-//     button.hidden = hidden;
-// }
-
-// function putBack() {
-//     welcome.hidden = false;
-// }
-
-// function changeText() {
-//     welcome.innerHTML = "Question 1: What is your name?";
-// }
-
-// const head = document.getElementById("head");
-// let scores = document.createElement("a");
-
-// scores.innerHTML = `This is a link`;
-// scores.href = `https://www.w3schools.com/html/html_links.asp`;
-
-// head.appendChild(scores);
-
-// let timer = document.createElement("p");
-
-// timer.innerHTML = "Time: 0";
-
-// head.appendChild(timer);

@@ -7,6 +7,12 @@ header {
     justify-content: space-between;
 }
 
+#view_scores {
+    background-color: white;
+    color: rgb(240, 100, 123);
+    border: none;
+}
+
 #center-card {
     display: flex;
     flex-direction: column;
@@ -18,3 +24,6 @@ button {
     color: white;
 }
 
+button:hover {
+    background-color: pink;
+}
