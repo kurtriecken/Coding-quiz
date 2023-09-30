@@ -27,3 +27,9 @@ button {
 button:hover {
     background-color: pink;
 }
+
+h3 {
+    font-style: italic;
+    color: lightgray;
+    opacity: 0.9;
+}
