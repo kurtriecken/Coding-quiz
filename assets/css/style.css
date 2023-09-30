@@ -41,6 +41,10 @@ h1, #welcome_details {
     text-align: center;
 }
 
+#start {
+    margin: auto;
+}
+
 #question_card {
     display: flex;
     margin: auto;
