@@ -114,6 +114,7 @@ h3 {
     width: 60%;
     text-align: left;
     font-style: italic;
-    color: lightgray;
-    opacity: 0.9;
+    color: gray;
+    opacity: 0.8;
+    border-top: 2px solid gray;
 }

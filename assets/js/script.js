@@ -56,6 +56,7 @@ let currQuestion = "";
 let questSolution = "";
 let choiceArr;
 let questArr;
+let scores = localStorage.getItem("localScores");
 
 // functions
 // Was the answer right? Print result to bottom of screen
@@ -69,6 +70,11 @@ function init() {
   timer.innerHTML = timerWord + timeRemaining;
   initialsEntry.setAttribute("style", "display: none");
   qCard.setAttribute("style", "display: none");
+  welcome.setAttribute("style", "display: block");
+  qResult.setAttribute("hidden", "hidden");
+  // TESTING purposes
+  var localScores = localStorage.getItem("localScores");
+  console.log(localScores);
 }
 
 function tickDown() {
@@ -147,7 +153,7 @@ function changeDisplay(e) {
   // Click to start game
   // Show next question with answers
   if (currButton === startButton) {
-    welcome.setAttribute("hidden", "hidden");
+    welcome.setAttribute("style", "display: none");
     qCard.removeAttribute("hidden");
     generateNewQuestion();
   }
@@ -172,6 +178,7 @@ startButton.addEventListener("click", function(event) {
   grave.play();
   timeVar = setInterval(tickDown, 1000);
   qCard.setAttribute("style", "display: flex");
+  qResult.setAttribute("hidden", "hidden");
   changeDisplay(event)
 });
 
@@ -196,24 +203,24 @@ choices.addEventListener("mouseover", function(e) {
 })
 
 submitButton.addEventListener("click", function(e) {
+  e.preventDefault();
   var score = {
-    initials: initials.value.trim()
+    initials: initials.value.trim(),
+    score: timeRemaining
   };
-  console.log(score.initials);
+  var localScores = JSON.parse(localStorage.getItem("localScores"));
+  console.log(localScores);
+  if (localScores != null) {
+    localScores.push(score);
+  }
+  else {
+    localScores = [score];
+  }
+  localStorage.setItem("localScores", JSON.stringify(localScores));
+  init();
 })
 
 init();
 
 
 
-
-// var context;
-// window.addEventListener('load', init2, false);
-// function init2() {
-//     try {
-//     context = new AudioContext();
-//     }
-//     catch(e) {
-//     alert('Web Audio API is not supported in this browser');
-//     }
-// }
