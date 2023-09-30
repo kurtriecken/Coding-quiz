@@ -20,6 +20,11 @@ const scoreText = document.getElementById("score_text");
 const qResult = document.getElementById("question_result");
 const highScores = document.getElementById("high_scores");
 
+const grave = new Audio("./assets/audio/grave.wav");
+const sparkle = new Audio("./assets/audio/sparkle.mp3");
+const buzz = new Audio("./assets/audio/buzz.mp3");
+grave.volume = 0.1;
+
 // Quiz questions
 let quizQuestions = 
   [
@@ -77,11 +82,13 @@ function generateNewQuestion(button) {
   if (questSolution !== "") {
     if (button.innerHTML == questSolution) {
       qResult.innerHTML = "Correct!";
+      sparkle.play();
     }
     else {
       qResult.innerHTML = "Wrong =(";
       // TODO: Timer minus 10
       timeRemaining -= 10;
+      buzz.play();
     }
   }
 
@@ -161,6 +168,7 @@ function changeDisplay(e) {
 
 // Event listeners
 startButton.addEventListener("click", function(event) {
+  grave.play();
   timeVar = setInterval(tickDown, 1000);
   qCard.setAttribute("style", "display: flex");
   changeDisplay(event)
@@ -187,3 +195,17 @@ choices.addEventListener("mouseover", function(e) {
 })
 
 init();
+
+
+
+
+// var context;
+// window.addEventListener('load', init2, false);
+// function init2() {
+//     try {
+//     context = new AudioContext();
+//     }
+//     catch(e) {
+//     alert('Web Audio API is not supported in this browser');
+//     }
+// }
