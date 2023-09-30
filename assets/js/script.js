@@ -14,6 +14,7 @@ const welcome = document.getElementById("welcome_card");
 const qCard = document.getElementById("question_card");
 const questionText = document.getElementById("question_text");
 const choices = document.getElementById("choice_wrapper");
+const initialsEntry = document.getElementById("initials_entry");
 const qResult = document.getElementById("question_result");
 const highScores = document.getElementById("high_scores");
 
@@ -40,17 +41,24 @@ let quizQuestions =
   ];
 
 // Other variables
-let currQuestion;
+let currQuestion = "";
 let questSolution = "";
+let choiceArr;
 let questArr;
 
 // functions
 // Was the answer right? Print result to bottom of screen
 
+function init() {
+  currQuestion = "";
+  questSolution = "";
+  choiceArr = [];
+  questArr = structuredClone(quizQuestions);
+}
+
 function generateNewQuestion(button) {  
-  // Select random question from quizQuestions
-    // Use that to populate h2 and choices buttons
-    // Also, set global solution variable to the solution from question
+
+  // If a question has been answered, print result to bottom of page
   qResult.removeAttribute("hidden");
   if (questSolution !== "") {
     if (button.innerHTML == questSolution) {
@@ -61,18 +69,27 @@ function generateNewQuestion(button) {
     }
   }
 
+  if (questArr.length == 0) {
+    qCard.setAttribute("hidden", "hidden");
+    initialsEntry.removeAttribute("hidden");
+    return;
+  }
 
-  const questionClone = structuredClone(quizQuestions[Math.floor(Math.random() * quizQuestions.length)]);
+  // Select random question from quizQuestions
+    // Use that to populate #question_text and .choices buttons
+    // Also, set global solution variable to the solution from question
+  const questIdx = Math.floor(Math.random() * questArr.length);
+  const questionClone = structuredClone(questArr[questIdx]);
 
   currQuestion = questionClone;
   questSolution = currQuestion.solution;
-  questArr = currQuestion.answers;
+  choiceArr = currQuestion.answers;
   // This for loop fills the choice buttons with text (random order)
   for (let i = 0; i < 4; i++) {
     // Grab a random element and assign it to the button i+1
     // Splice out that element
-    let currChoiceIdx = Math.floor(Math.random() * questArr.length);
-    let buttonText = questArr[currChoiceIdx];
+    let currChoiceIdx = Math.floor(Math.random() * choiceArr.length);
+    let buttonText = choiceArr[currChoiceIdx];
     switch (i+1) {
       case 1:
         ansButton1.innerHTML = buttonText;
@@ -87,11 +104,14 @@ function generateNewQuestion(button) {
         ansButton4.innerHTML = buttonText;
       break;
     }
-    questArr.splice(currChoiceIdx, 1);
-    console.log(`Questions: ${questArr}`);
+    choiceArr.splice(currChoiceIdx, 1);
   }
   // Sets question text
   questionText.innerHTML = currQuestion.question;
+  // Removes selected question from possibilities
+  questArr.splice(questIdx, 1);
+  console.log("Just removed a question. Let's see what's left");
+  console.log(questArr);
 }
 
 function changeDisplay(e) {
@@ -106,7 +126,6 @@ function changeDisplay(e) {
   }
   else if (currButton === ansButton1 || currButton === ansButton2 ||
            currButton === ansButton3 || currButton === ansButton4) {
-            // console.log(currButton);
             generateNewQuestion(currButton);
   }
   // Options:
@@ -136,3 +155,4 @@ choices.addEventListener("click", function(event) {
   changeDisplay(event)
 });
 
+init();
