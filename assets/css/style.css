@@ -1,5 +1,15 @@
 * {
     padding: 3px;
+    margin: auto;
+}
+
+[hidden] {
+    display: none;
+}
+
+section {
+    width: 60%;
+    margin: auto;
 }
 
 header {
@@ -7,15 +17,14 @@ header {
     justify-content: space-between;
 }
 
+header > button, p {
+    margin: 0;
+}
+
 #view_scores {
     background-color: white;
     color: rgb(240, 100, 123);
     border: none;
-}
-
-#center-card {
-    display: flex;
-    flex-direction: column;
 }
 
 button {
@@ -28,7 +37,49 @@ button:hover {
     background-color: pink;
 }
 
+h1, #welcome_details {
+    text-align: center;
+}
+
+#question_card {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+}
+
+#question_text, #choice_wrapper {
+    width: 60%;
+    margin: 0;
+}
+
+#choice_wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.choices {
+    margin: 0;
+    width: fit-content;
+}
+
+#initials_entry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    display: flex;
+}
+
+form > label, input, button {
+    display: flex;
+    margin: 0;
+}
+
 h3 {
+    width: 60%;
+    text-align: left;
     font-style: italic;
     color: lightgray;
     opacity: 0.9;

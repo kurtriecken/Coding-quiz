@@ -16,10 +16,10 @@
     </header>
     <section id="welcome_card">
         <h1 id="welcome">Welcome to the coding quiz!</h1>
-        <p>Try to answer the following code-related questions
+        <p id="welcome_details">Try to answer the following code-related questions
             within the time limit. Keep in mind that incorrect answers
             will penalize your score/time by ten seconds!</p>
-        <button id="start" hidden="hidden">Click to start...</button>
+        <button id="start">Click to start...</button>
     </section>
     <section id="question_card" hidden="hidden">
         <h2 id="question_text">Question 1: Blah blah blah?</h2>
@@ -31,12 +31,15 @@
         </div>
     </section>
     <section id="initials_entry" hidden="hidden">
-        <h2>Congratulations!</h2>
-        <p id="score_text">Your final score is&nbsp</p>
-        <form method="post" placeholder="e.g. JD">
-            <label for="initials">Enter initals here:&nbsp</label>
-            <input type="text" id="initials">
-        </form>
+        <div id="entry_box">
+            <h2>Congratulations!</h2>
+            <p id="score_text">Your final score is&nbsp</p>
+            <form method="post" placeholder="e.g. JD">
+                <label for="initials">Enter initals here:&nbsp</label>
+                <input type="text" id="initials">
+                <button>Submit</button>
+            </form>
+        </div>
     </section>
     <h3 id="question_result" hidden="hidden"></h3>
     <section id="high_scores" hidden="hidden">

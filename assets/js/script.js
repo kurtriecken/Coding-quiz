@@ -61,6 +61,8 @@ function init() {
   choiceArr = [];
   questArr = structuredClone(quizQuestions);
   timer.innerHTML = timerWord + timeRemaining;
+  initialsEntry.setAttribute("style", "display: none");
+  qCard.setAttribute("style", "display: none");
 }
 
 function tickDown() {
@@ -83,11 +85,12 @@ function generateNewQuestion(button) {
     }
   }
 
+  // Once no more question are available, display results
   if (questArr.length == 0) {
     clearInterval(timeVar);
     scoreText.innerHTML += timeRemaining;
-    qCard.setAttribute("hidden", "hidden");
-    initialsEntry.removeAttribute("hidden");
+    qCard.setAttribute("style", "display: none");
+    initialsEntry.setAttribute("style", "display: block");
     return;
   }
 
@@ -159,6 +162,7 @@ function changeDisplay(e) {
 // Event listeners
 startButton.addEventListener("click", function(event) {
   timeVar = setInterval(tickDown, 1000);
+  qCard.setAttribute("style", "display: flex");
   changeDisplay(event)
 });
 
