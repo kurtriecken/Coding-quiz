@@ -239,6 +239,14 @@ choices.addEventListener("mouseenter", function(e) {
 
 submitButton.addEventListener("click", function(e) {
   e.preventDefault();
+  if (initials.value.trim().length < 2 || initials.value.trim().length > 3) {
+    alert("Initials must be either 2 or 3 characters, please!")
+    return;
+  }
+  if (!initials.matches(/([a-z]*[A-Z]*)+/)) {
+    alert("Initials must be letters, please!");
+    return;
+  }
   var score = {
     initials: initials.value.trim(),
     score: timeRemaining
