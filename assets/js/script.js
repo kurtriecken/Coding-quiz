@@ -19,6 +19,7 @@ const questionText = document.getElementById("question_text");
 const choices = document.getElementById("choice_wrapper");
 const initialsEntry = document.getElementById("initials_entry");
 const scoreText = document.getElementById("score_text");
+const inputForm = document.getElementById("input_form");
 const initials = document.getElementById("initials");
 const qResult = document.getElementById("question_result");
 const highScores = document.getElementById("high_scores");
@@ -27,6 +28,7 @@ const scoreList = document.getElementById("topScoreList");
 const grave = new Audio("./assets/audio/grave.wav");
 const sparkle = new Audio("./assets/audio/sparkle.mp3");
 const buzz = new Audio("./assets/audio/buzz.mp3");
+const trumpets = new Audio("./assets/audio/trumpets.mp3");
 
 // Quiz questions
 let quizQuestions = 
@@ -38,15 +40,33 @@ let quizQuestions =
     },
 
     {
-      question: "Which of these is NOT a semantic HTML element?",
-      answers: ["main", "div", "header", "section"],
-      solution: "div"
+      question: "Which characters will does this regex: [a-z] refer to?",
+      answers: ["a, -, z", "lower case letters", "any letters", "a, z"],
+      solution: "lower case letters"
     },
 
     {
       question: "Which of these, when added to justify-content, will put the same spacing between items?",
       answers: ["space-evenly", "space-around", "space-between", "center"],
       solution: "space-evenly"
+    },
+
+    {
+      question: "A ________ HTML element is one which describes its function as part of the page.",
+      answers: ["specific", "semantic", "javascript", "div"],
+      solution: "semantic"
+    },
+
+    {
+      question: "Why should you comment your code?",
+      answers: ["For your own sake", "For your team's sake", "For clarity's sake", "All of these"],
+      solution: "All of these"
+    },
+
+    {
+      question: "Which type of files should NOT be in the assets folder?",
+      answers: ["HTML", "CSS", "JavaScript", "Screenshots"],
+      solution: "HTML"
     }
   ];
 
@@ -78,6 +98,7 @@ function init() {
     scoreList.removeChild(scoreList.firstChild);
   }
   scoreText.innerHTML = "Your final score is ";
+  inputForm.reset();
 
   // highScores.setAttribute("style", "display: none");
   // TESTING purposes
@@ -107,7 +128,9 @@ function generateNewQuestion(button) {
 
   // Once no more questions are available, display final results
   if (questArr.length == 0) {
+
     clearInterval(timeVar);
+    trumpets.play();
     scoreText.innerHTML += timeRemaining;
     qCard.setAttribute("style", "display: none");
     initialsEntry.setAttribute("style", "display: block");
