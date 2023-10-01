@@ -11,6 +11,7 @@ const clearScoresButton = document.getElementById("clear_scores");
 const HSButton = document.getElementById("view_scores");
 
 // Sections to hide/unhide
+const header = document.getElementById("head");
 const timer = document.getElementById("timer");
 const welcome = document.getElementById("welcome_card");
 const qCard = document.getElementById("question_card");
@@ -70,6 +71,7 @@ function init() {
   timer.innerHTML = timerWord + timeRemaining;
   initialsEntry.setAttribute("style", "display: none");
   qCard.setAttribute("style", "display: none");
+  header.setAttribute("style", "display: flex");
   welcome.setAttribute("style", "display: block");
   qResult.setAttribute("style", "display: none");
   highScores.setAttribute("style", "display: none");
@@ -200,7 +202,7 @@ function displayHighScores(scoresArr) {
     let listItem = document.createElement("li");
     let newInit = newArr[idx].initials;
     let newScore = newArr[idx].score;
-    listItem.innerHTML = `${idx+1}: ${newInit} --- ${newScore}`
+    listItem.innerHTML = `${idx+1}) ${newInit} --- ${newScore}`
     scoreList.appendChild(listItem);
   }
   highScores.setAttribute("style", "display: block");
@@ -253,6 +255,7 @@ submitButton.addEventListener("click", function(e) {
   // Hide score elements
   // Show high scores page
   initialsEntry.setAttribute("style", "display: none");
+  header.setAttribute("style", "display: none");
   qResult.setAttribute("style", "display: none");
   // Parse and display top 5 high scores IN ORDER
   displayHighScores(localScores);
@@ -268,6 +271,17 @@ clearScoresButton.addEventListener("click", function() {
     scoreList.removeChild(scoreList.firstChild);
   }
   localStorage.removeItem("localScores");
+});
+
+HSButton.addEventListener("click", function(e) {
+  var localScores = JSON.parse(localStorage.getItem("localScores"));
+  if (localScores != null) {
+    displayHighScores(localScores);
+  }
+  e.preventDefault();
+  welcome.setAttribute("style", "display: none");
+  header.setAttribute("style", "display: none");
+  highScores.setAttribute("style", "display: block");
 });
 
 init();

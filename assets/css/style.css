@@ -26,6 +26,12 @@ header > button, p {
     background-color: white;
     color: rgb(240, 100, 123);
     border: none;
+    text-decoration: underline;
+}
+
+#view_scores:hover {
+    color: rgb(212, 6, 40);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
 }
 
 button {
@@ -131,6 +137,7 @@ ol li {
 
 #high_scores {
     display: block;
+    margin-top: 50px;
 }
 
 #high_scores section {
