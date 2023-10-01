@@ -73,6 +73,10 @@ function init() {
   welcome.setAttribute("style", "display: block");
   qResult.setAttribute("style", "display: none");
   highScores.setAttribute("style", "display: none");
+  while (scoreList.hasChildNodes()) {
+    scoreList.removeChild(scoreList.firstChild);
+  }
+  scoreText.innerHTML = "Your final score is ";
 
   // highScores.setAttribute("style", "display: none");
   // TESTING purposes
@@ -86,14 +90,14 @@ function tickDown() {
 function generateNewQuestion(button) {  
 
   // If a question has been answered, print result to bottom of page
+
   if (questSolution !== "") {
-    if (button.innerHTML == questSolution) {
+    if (button.textContent.substring(3) == questSolution) {
       qResult.innerHTML = "Correct!";
       sparkle.play();
     }
     else {
       qResult.innerHTML = "Wrong =(";
-      // TODO: Timer minus 10
       timeRemaining -= 10;
       buzz.play();
     }
@@ -125,16 +129,16 @@ function generateNewQuestion(button) {
     let buttonText = choiceArr[currChoiceIdx];
     switch (i+1) {
       case 1:
-        ansButton1.innerHTML = "1) " + buttonText;
+        ansButton1.textContent = "1) " + buttonText;
         break;
       case 2:
-        ansButton2.innerHTML = "2) " + buttonText;
+        ansButton2.textContent = "2) " + buttonText;
         break;
       case 3:
-        ansButton3.innerHTML = "3) " + buttonText;
+        ansButton3.textContent = "3) " + buttonText;
         break;
       case 4:
-        ansButton4.innerHTML = "4) " + buttonText;
+        ansButton4.textContent = "4) " + buttonText;
       break;
     }
     choiceArr.splice(currChoiceIdx, 1);
@@ -177,21 +181,29 @@ function displayHighScores(scoresArr) {
   let newArr = [];
   for (let i = 0; i < 5; i++) {
     for (let j = 0; j < scoresArr.length; j++) {
+      if (scoresArr.length == 0) {
+        break;
+      }
       if (scoresArr[j].score > highScore) {
         highScore = scoresArr[j].score;
         highIdx = j;
       }
     }
-    newArr.push(scoresArr[highIdx]);
-    scoresArr.splice(highIdx, 1);
+    if (highIdx >= 0) {
+      newArr.push(scoresArr[highIdx]);
+      scoresArr.splice(highIdx, 1);
+    }
     highScore = 0;
     highIdx = -1;
   }
   for (let idx = 0; idx < newArr.length; idx++) {
     let listItem = document.createElement("li");
-    listItem.innerHTML = `${idx+1}) ${newArr[idx].initials} --- ${newArr[idx].score}`
+    let newInit = newArr[idx].initials;
+    let newScore = newArr[idx].score;
+    listItem.innerHTML = `${idx+1}: ${newInit} --- ${newScore}`
     scoreList.appendChild(listItem);
   }
+  highScores.setAttribute("style", "display: block");
 }
 
 // Event listeners
@@ -248,7 +260,7 @@ submitButton.addEventListener("click", function(e) {
 });
 
 backButton.addEventListener("click", function() {
-  // init();
+  init();
 });
 
 clearScoresButton.addEventListener("click", function() {
