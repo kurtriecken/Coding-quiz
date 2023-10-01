@@ -239,12 +239,13 @@ choices.addEventListener("mouseenter", function(e) {
 
 submitButton.addEventListener("click", function(e) {
   e.preventDefault();
-  if (initials.value.trim().length < 2 || initials.value.trim().length > 3) {
-    alert("Initials must be either 2 or 3 characters, please!")
-    return;
-  }
-  if (!initials.matches(/([a-z]*[A-Z]*)+/)) {
-    alert("Initials must be letters, please!");
+  // if (initials.value.trim().length < 2 || initials.value.trim().length > 3) {
+  //   alert("Initials must be either 2 or 3 characters, please!")
+  //   return;
+  // }
+  console.log(initials.value.trim());
+  if (!initials.value.trim().match(/(^[A-Z]{2,3}$)/i)) {
+    alert("Initials must be letters only and either 2 or 3 characters, please!");
     return;
   }
   var score = {
