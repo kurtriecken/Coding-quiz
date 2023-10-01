@@ -290,6 +290,7 @@ HSButton.addEventListener("click", function(e) {
   welcome.setAttribute("style", "display: none");
   header.setAttribute("style", "display: none");
   initialsEntry.setAttribute("style", "display: none");
+  qResult.setAttribute("style", "display: none");
   highScores.setAttribute("style", "display: block");
 });
 
