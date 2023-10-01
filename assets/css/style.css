@@ -4,6 +4,10 @@
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+body {
+    background-color: rgb(230, 240, 255);
+}
+
 [hidden] {
     display: none;
 }
@@ -23,15 +27,19 @@ header > button, p {
 }
 
 #view_scores {
-    background-color: white;
-    color: rgb(240, 100, 123);
+    background-color: rgb(230, 240, 255);
+    color: rgb(137, 100, 240);
     border: none;
     text-decoration: underline;
 }
 
 #view_scores:hover {
     color: rgb(212, 6, 40);
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(230, 240, 255, 0.9);
+}
+
+#welcome_card p {
+    font-size: larger;
 }
 
 button {
