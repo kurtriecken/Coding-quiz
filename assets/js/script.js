@@ -107,6 +107,7 @@ function init() {
 function tickDown() {
   timeRemaining--;
   if (timeRemaining <= 0) {
+    timeRemaining = 0;
     pIR.play();
     finishGame();
   }
@@ -132,6 +133,9 @@ function generateNewQuestion(button) {
     else {
       qResult.innerHTML = "Wrong =(";
       timeRemaining -= 10;
+      if (timeRemaining < 0) {
+        timeRemaining = 0;
+      }
       buzz.play();
     }
   }
@@ -241,10 +245,14 @@ HSButton.addEventListener("click", function(e) {
     displayHighScores(localScores);
   }
   e.preventDefault();
+  clearInterval(timeVar);
+
+  // Set hidden
   welcome.setAttribute("style", "display: none");
   header.setAttribute("style", "display: none");
   initialsEntry.setAttribute("style", "display: none");
   qResult.setAttribute("style", "display: none");
+  qCard.setAttribute("style", "display: none");
   highScores.setAttribute("style", "display: block");
 });
 
