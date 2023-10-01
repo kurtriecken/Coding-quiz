@@ -127,12 +127,12 @@ form button {
 
 h3 {
     font-size: x-large;
-
+    padding: 3px 3px 6px 3px;
 }
 
 ol li {
-    background-color: rgb(175, 152, 236);
-    margin: 3px 0;
+    background-color: rgb(208, 196, 240);
+    margin: 0 0 8px 0;
 }
 
 #high_scores {
@@ -143,5 +143,5 @@ ol li {
 #high_scores section {
     margin: 0;
     display: flex;
-    padding: 0 6px 0 0;
+    padding: 0 6px 0 3px;
 }
