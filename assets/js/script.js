@@ -147,6 +147,11 @@ function generateNewQuestion(button) {
     return;
   }
 
+  // Change focus from button previously pressed to body
+  if (document.activeElement.className == "choices") {
+    document.activeElement.blur();
+  }
+
   // Select random question from Questions array
     // Use that to populate #question_text and .choices buttons
     // Set global solution variable to the solution from selected question object
