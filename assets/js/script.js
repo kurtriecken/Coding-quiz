@@ -1,5 +1,5 @@
 // Global variables
-// Buttons
+// Button variables
 const startButton = document.getElementById("start");
 const ansButton1 = document.getElementById("button_1");
 const ansButton2 = document.getElementById("button_2");
@@ -10,7 +10,7 @@ const backButton = document.getElementById("back");
 const clearScoresButton = document.getElementById("clear_scores");
 const HSButton = document.getElementById("view_scores");
 
-// Sections to hide/unhide
+// Section variables to hide/unhide
 const header = document.getElementById("head");
 const timer = document.getElementById("timer");
 const welcome = document.getElementById("welcome_card");
@@ -50,7 +50,7 @@ let quizQuestions =
     }
   ];
 
-// Other variables
+// Instance variables
 const timerWord = "Time: "
 let timeRemaining = 0;
 let timeVar;
@@ -59,9 +59,8 @@ let questSolution = "";
 let choiceArr;
 let questArr;
 
-// functions
-// Was the answer right? Print result to bottom of screen
-
+// Functions
+// Welcome screen initialization
 function init() {
   timeRemaining = 75;
   currQuestion = "";
@@ -84,15 +83,16 @@ function init() {
   // TESTING purposes
 }
 
+// Clock timer decrementer
 function tickDown() {
   timeRemaining--;
   timer.innerHTML = timerWord + timeRemaining;
 }
 
+// Generates a new question to the screen
 function generateNewQuestion(button) {  
 
   // If a question has been answered, print result to bottom of page
-
   if (questSolution !== "") {
     if (button.textContent.substring(3) == questSolution) {
       qResult.innerHTML = "Correct!";
@@ -105,7 +105,7 @@ function generateNewQuestion(button) {
     }
   }
 
-  // Once no more question are available, display results
+  // Once no more questions are available, display final results
   if (questArr.length == 0) {
     clearInterval(timeVar);
     scoreText.innerHTML += timeRemaining;
@@ -114,22 +114,25 @@ function generateNewQuestion(button) {
     return;
   }
 
-  // Select random question from quizQuestions
+  // Select random question from Questions array
     // Use that to populate #question_text and .choices buttons
-    // Also, set global solution variable to the solution from question
+    // Set global solution variable to the solution from selected question object
   const questIdx = Math.floor(Math.random() * questArr.length);
-  const questionClone = structuredClone(questArr[questIdx]);
 
+  // Creates a clone of the question so that the question can be safely removed from
+  // play without effecting future playthroughs.
+  const questionClone = structuredClone(questArr[questIdx]);
   currQuestion = questionClone;
   questSolution = currQuestion.solution;
   choiceArr = currQuestion.answers;
-  // This for loop fills the choice buttons with text (random order)
-  for (let i = 0; i < 4; i++) {
-    // Grab a random element and assign it to the button i+1
-    // Splice out that element
+
+  // Fills the choice buttons with text (in a random order)
+  for (let i = 1; i <= 4; i++) {
+    // Grab a random element and assign it to the button i
+    // Then splice out that choice from the options
     let currChoiceIdx = Math.floor(Math.random() * choiceArr.length);
     let buttonText = choiceArr[currChoiceIdx];
-    switch (i+1) {
+    switch (i) {
       case 1:
         ansButton1.textContent = "1) " + buttonText;
         break;
@@ -145,38 +148,32 @@ function generateNewQuestion(button) {
     }
     choiceArr.splice(currChoiceIdx, 1);
   }
+
   // Sets question text
   questionText.innerHTML = currQuestion.question;
   // Removes selected question from possibilities
   questArr.splice(questIdx, 1);
 }
 
+// Populates the new screen for questions
 function changeDisplay(e) {
   let currButton = e.target;
 
-  // Click to start game
-  // Show next question with answers
+  // If start button was clicked, hides welcome screen and displays question box
   if (currButton === startButton) {
     welcome.setAttribute("style", "display: none");
     qCard.setAttribute("style", "display: block");
     generateNewQuestion();
   }
+
+  // If a question was answered, generates the next one
   else if (currButton === ansButton1 || currButton === ansButton2 ||
            currButton === ansButton3 || currButton === ansButton4) {
             generateNewQuestion(currButton);
   }
-  // Options:
-
-
-  // CLick answer of a question
-    // AT FINAL QUESTION, screen changes differently
-  
-  // On high score page, clicking to go back and restart quiz
-    // Show home page again
-  
-  // On high score page, clicking to clear scores does so (local storage)
 }
 
+// Generates and displays the high score screen with scores from local storage
 function displayHighScores(scoresArr) {
   let highScore = 0;
   let highIdx = -1;
@@ -209,6 +206,19 @@ function displayHighScores(scoresArr) {
 }
 
 // Event listeners
+HSButton.addEventListener("click", function(e) {
+  var localScores = JSON.parse(localStorage.getItem("localScores"));
+  if (localScores != null) {
+    displayHighScores(localScores);
+  }
+  e.preventDefault();
+  welcome.setAttribute("style", "display: none");
+  header.setAttribute("style", "display: none");
+  initialsEntry.setAttribute("style", "display: none");
+  qResult.setAttribute("style", "display: none");
+  highScores.setAttribute("style", "display: block");
+});
+
 startButton.addEventListener("click", function(event) {
   grave.play();
   timeVar = setInterval(tickDown, 1000);
@@ -228,6 +238,7 @@ choices.addEventListener("click", function(event) {
   changeDisplay(event)
 });
 
+// TODO: fix this function
 choices.addEventListener("mouseenter", function(e) {
   e.stopPropagation();
   let mouseOver = e.target.nodeName;
@@ -239,15 +250,13 @@ choices.addEventListener("mouseenter", function(e) {
 
 submitButton.addEventListener("click", function(e) {
   e.preventDefault();
-  // if (initials.value.trim().length < 2 || initials.value.trim().length > 3) {
-  //   alert("Initials must be either 2 or 3 characters, please!")
-  //   return;
-  // }
-  console.log(initials.value.trim());
+
+  // Initials entry data validation
   if (!initials.value.trim().match(/(^[A-Z]{2,3}$)/i)) {
     alert("Initials must be letters only and either 2 or 3 characters, please!");
     return;
   }
+  // Storing of intials and score in score object, then into local storage
   var score = {
     initials: initials.value.trim(),
     score: timeRemaining
@@ -261,11 +270,11 @@ submitButton.addEventListener("click", function(e) {
   }
   localStorage.setItem("localScores", JSON.stringify(localScores));
 
-  // Hide score elements
-  // Show high scores page
+  // Hide all elements other than high scores
   initialsEntry.setAttribute("style", "display: none");
   header.setAttribute("style", "display: none");
   qResult.setAttribute("style", "display: none");
+
   // Parse and display top 5 high scores IN ORDER
   displayHighScores(localScores);
   highScores.setAttribute("style", "display: block");
@@ -282,19 +291,7 @@ clearScoresButton.addEventListener("click", function() {
   localStorage.removeItem("localScores");
 });
 
-HSButton.addEventListener("click", function(e) {
-  var localScores = JSON.parse(localStorage.getItem("localScores"));
-  if (localScores != null) {
-    displayHighScores(localScores);
-  }
-  e.preventDefault();
-  welcome.setAttribute("style", "display: none");
-  header.setAttribute("style", "display: none");
-  initialsEntry.setAttribute("style", "display: none");
-  qResult.setAttribute("style", "display: none");
-  highScores.setAttribute("style", "display: block");
-});
-
+// Runs initialization of page upon page load
 init();
 
 
