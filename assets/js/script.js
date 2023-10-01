@@ -21,6 +21,7 @@ const scoreText = document.getElementById("score_text");
 const initials = document.getElementById("initials");
 const qResult = document.getElementById("question_result");
 const highScores = document.getElementById("high_scores");
+const scoreList = document.getElementById("topScoreList");
 
 const grave = new Audio("./assets/audio/grave.wav");
 const sparkle = new Audio("./assets/audio/sparkle.mp3");
@@ -56,7 +57,6 @@ let currQuestion = "";
 let questSolution = "";
 let choiceArr;
 let questArr;
-let scores = localStorage.getItem("localScores");
 
 // functions
 // Was the answer right? Print result to bottom of screen
@@ -71,10 +71,11 @@ function init() {
   initialsEntry.setAttribute("style", "display: none");
   qCard.setAttribute("style", "display: none");
   welcome.setAttribute("style", "display: block");
-  qResult.setAttribute("hidden", "hidden");
+  qResult.setAttribute("style", "display: none");
+  highScores.setAttribute("style", "display: none");
+
+  // highScores.setAttribute("style", "display: none");
   // TESTING purposes
-  var localScores = localStorage.getItem("localScores");
-  console.log(localScores);
 }
 
 function tickDown() {
@@ -85,7 +86,6 @@ function tickDown() {
 function generateNewQuestion(button) {  
 
   // If a question has been answered, print result to bottom of page
-  qResult.removeAttribute("hidden");
   if (questSolution !== "") {
     if (button.innerHTML == questSolution) {
       qResult.innerHTML = "Correct!";
@@ -125,16 +125,16 @@ function generateNewQuestion(button) {
     let buttonText = choiceArr[currChoiceIdx];
     switch (i+1) {
       case 1:
-        ansButton1.innerHTML = buttonText;
+        ansButton1.innerHTML = "1) " + buttonText;
         break;
       case 2:
-        ansButton2.innerHTML = buttonText;
+        ansButton2.innerHTML = "2) " + buttonText;
         break;
       case 3:
-        ansButton3.innerHTML = buttonText;
+        ansButton3.innerHTML = "3) " + buttonText;
         break;
       case 4:
-        ansButton4.innerHTML = buttonText;
+        ansButton4.innerHTML = "4) " + buttonText;
       break;
     }
     choiceArr.splice(currChoiceIdx, 1);
@@ -143,8 +143,6 @@ function generateNewQuestion(button) {
   questionText.innerHTML = currQuestion.question;
   // Removes selected question from possibilities
   questArr.splice(questIdx, 1);
-  console.log("Just removed a question. Let's see what's left");
-  console.log(questArr);
 }
 
 function changeDisplay(e) {
@@ -154,7 +152,7 @@ function changeDisplay(e) {
   // Show next question with answers
   if (currButton === startButton) {
     welcome.setAttribute("style", "display: none");
-    qCard.removeAttribute("hidden");
+    qCard.setAttribute("style", "display: block");
     generateNewQuestion();
   }
   else if (currButton === ansButton1 || currButton === ansButton2 ||
@@ -173,16 +171,40 @@ function changeDisplay(e) {
   // On high score page, clicking to clear scores does so (local storage)
 }
 
+function displayHighScores(scoresArr) {
+  let highScore = 0;
+  let highIdx = -1;
+  let newArr = [];
+  for (let i = 0; i < 5; i++) {
+    for (let j = 0; j < scoresArr.length; j++) {
+      if (scoresArr[j].score > highScore) {
+        highScore = scoresArr[j].score;
+        highIdx = j;
+      }
+    }
+    newArr.push(scoresArr[highIdx]);
+    scoresArr.splice(highIdx, 1);
+    highScore = 0;
+    highIdx = -1;
+  }
+  for (let idx = 0; idx < newArr.length; idx++) {
+    let listItem = document.createElement("li");
+    listItem.innerHTML = `${idx+1}) ${newArr[idx].initials} --- ${newArr[idx].score}`
+    scoreList.appendChild(listItem);
+  }
+}
+
 // Event listeners
 startButton.addEventListener("click", function(event) {
   grave.play();
   timeVar = setInterval(tickDown, 1000);
   qCard.setAttribute("style", "display: flex");
-  qResult.setAttribute("hidden", "hidden");
+  qResult.setAttribute("style", "display: none");
   changeDisplay(event)
 });
 
 choices.addEventListener("click", function(event) {
+  qResult.setAttribute("style", "display: block");
   let clickedOn = event.target.nodeName;
   if (clickedOn !== 'BUTTON') {
     return;
@@ -194,13 +216,12 @@ choices.addEventListener("click", function(event) {
 
 choices.addEventListener("mouseover", function(e) {
   e.stopPropagation();
-  console.log("I see you...");
   let mouseOver = e.target.nodeName;
   if (mouseOver !== 'BUTTON') {
     return;
   }
-  qResult.setAttribute("hidden", "hidden");
-})
+  qResult.setAttribute("style", "display: none")
+});
 
 submitButton.addEventListener("click", function(e) {
   e.preventDefault();
@@ -209,7 +230,6 @@ submitButton.addEventListener("click", function(e) {
     score: timeRemaining
   };
   var localScores = JSON.parse(localStorage.getItem("localScores"));
-  console.log(localScores);
   if (localScores != null) {
     localScores.push(score);
   }
@@ -217,8 +237,26 @@ submitButton.addEventListener("click", function(e) {
     localScores = [score];
   }
   localStorage.setItem("localScores", JSON.stringify(localScores));
-  init();
-})
+
+  // Hide score elements
+  // Show high scores page
+  initialsEntry.setAttribute("style", "display: none");
+  qResult.setAttribute("style", "display: none");
+  // Parse and display top 5 high scores IN ORDER
+  displayHighScores(localScores);
+  highScores.setAttribute("style", "display: block");
+});
+
+backButton.addEventListener("click", function() {
+  // init();
+});
+
+clearScoresButton.addEventListener("click", function() {
+  while (scoreList.hasChildNodes()) {
+    scoreList.removeChild(scoreList.firstChild);
+  }
+  localStorage.removeItem("localScores");
+});
 
 init();
 

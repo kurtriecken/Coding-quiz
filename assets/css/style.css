@@ -110,11 +110,31 @@ form button {
     padding: 3px 10px;
 }
 
-h3 {
+#question_result {
     width: 60%;
     text-align: left;
     font-style: italic;
     color: gray;
     opacity: 0.8;
     border-top: 2px solid gray;
+}
+
+h3 {
+    font-size: x-large;
+
+}
+
+ol li {
+    background-color: rgb(175, 152, 236);
+    margin: 3px 0;
+}
+
+#high_scores {
+    display: block;
+}
+
+#high_scores section {
+    margin: 0;
+    display: flex;
+    padding: 0 6px 0 0;
 }
