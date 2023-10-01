@@ -228,7 +228,7 @@ choices.addEventListener("click", function(event) {
   changeDisplay(event)
 });
 
-choices.addEventListener("mouseover", function(e) {
+choices.addEventListener("mouseenter", function(e) {
   e.stopPropagation();
   let mouseOver = e.target.nodeName;
   if (mouseOver !== 'BUTTON') {
@@ -281,6 +281,7 @@ HSButton.addEventListener("click", function(e) {
   e.preventDefault();
   welcome.setAttribute("style", "display: none");
   header.setAttribute("style", "display: none");
+  initialsEntry.setAttribute("style", "display: none");
   highScores.setAttribute("style", "display: block");
 });
 

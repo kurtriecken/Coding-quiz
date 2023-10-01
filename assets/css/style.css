@@ -56,7 +56,7 @@ h1, #welcome_details {
 }
 
 #start {
-    margin: auto;
+    margin: 5px auto auto auto;
     padding: 3px 10px;
 }
 
