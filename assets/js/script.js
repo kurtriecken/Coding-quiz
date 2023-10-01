@@ -29,6 +29,7 @@ const grave = new Audio("./assets/audio/grave.wav");
 const sparkle = new Audio("./assets/audio/sparkle.mp3");
 const buzz = new Audio("./assets/audio/buzz.mp3");
 const trumpets = new Audio("./assets/audio/trumpets.mp3");
+const pIR = new Audio("./assets/audio/PIR_sad.mp3");
 
 // Quiz questions
 let quizQuestions = 
@@ -100,14 +101,23 @@ function init() {
   scoreText.innerHTML = "Your final score is ";
   inputForm.reset();
 
-  // highScores.setAttribute("style", "display: none");
-  // TESTING purposes
 }
 
 // Clock timer decrementer
 function tickDown() {
   timeRemaining--;
+  if (timeRemaining <= 0) {
+    pIR.play();
+    finishGame();
+  }
   timer.innerHTML = timerWord + timeRemaining;
+}
+
+function finishGame() {
+  clearInterval(timeVar);
+  scoreText.innerHTML += timeRemaining;
+  qCard.setAttribute("style", "display: none");
+  initialsEntry.setAttribute("style", "display: block");
 }
 
 // Generates a new question to the screen
@@ -128,12 +138,8 @@ function generateNewQuestion(button) {
 
   // Once no more questions are available, display final results
   if (questArr.length == 0) {
-
-    clearInterval(timeVar);
     trumpets.play();
-    scoreText.innerHTML += timeRemaining;
-    qCard.setAttribute("style", "display: none");
-    initialsEntry.setAttribute("style", "display: block");
+    finishGame();
     return;
   }
 
