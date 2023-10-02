@@ -1,15 +1,13 @@
+/* Universal selector */
 * {
     padding: 3px;
     margin: auto;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+/* Styling of the main body elements */
 body {
     background-color: rgb(230, 240, 255);
-}
-
-[hidden] {
-    display: none;
 }
 
 section {
@@ -17,6 +15,7 @@ section {
     margin: auto;
 }
 
+/* Header styling */
 header {
     display: flex;
     justify-content: space-between;
@@ -38,6 +37,7 @@ header > button, p {
     box-shadow: 0 5px 15px rgba(230, 240, 255, 0.9);
 }
 
+/* Welcome message/home page styling */
 #welcome_card p {
     font-size: larger;
 }
@@ -68,6 +68,7 @@ h1, #welcome_details {
     padding: 3px 10px;
 }
 
+/* Quiz questions styling */
 #question_card {
     display: flex;
     margin: auto;
@@ -93,6 +94,7 @@ h2 {
     width: 200px;
 }
 
+/* Initials/high score entry styling */
 #initials_entry {
     display: flex;
     flex-direction: column;
@@ -124,6 +126,7 @@ form button {
     padding: 3px 10px;
 }
 
+/* Correct/wrong answer message styling */
 #question_result {
     width: 60%;
     text-align: left;
@@ -138,6 +141,7 @@ h3 {
     padding: 3px 3px 6px 3px;
 }
 
+/* High scores page styling */
 ol li {
     background-color: rgb(208, 196, 240);
     margin: 0 0 8px 0;
