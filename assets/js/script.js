@@ -1,5 +1,9 @@
-// Global variables
-// Button variables
+/*/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+//------------------------------------------Variables-----------------------------------------//
+/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
+
+// Buttons
+const HSButton = document.getElementById("view_scores");
 const startButton = document.getElementById("start");
 const ansButton1 = document.getElementById("button_1");
 const ansButton2 = document.getElementById("button_2");
@@ -8,9 +12,8 @@ const ansButton4 = document.getElementById("button_4");
 const submitButton = document.getElementById("submit");
 const backButton = document.getElementById("back");
 const clearScoresButton = document.getElementById("clear_scores");
-const HSButton = document.getElementById("view_scores");
 
-// Section variables to hide/unhide
+// Sections to hide/unhide
 const header = document.getElementById("head");
 const timer = document.getElementById("timer");
 const welcome = document.getElementById("welcome_card");
@@ -25,6 +28,7 @@ const qResult = document.getElementById("question_result");
 const highScores = document.getElementById("high_scores");
 const scoreList = document.getElementById("topScoreList");
 
+// Audio files
 const grave = new Audio("./assets/audio/grave.wav");
 const sparkle = new Audio("./assets/audio/sparkle.mp3");
 const buzz = new Audio("./assets/audio/buzz.mp3");
@@ -80,32 +84,47 @@ let questSolution = "";
 let choiceArr;
 let questArr;
 
-// Functions
+/*/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+//------------------------------------------Functions-----------------------------------------//
+/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
+
 // Welcome screen initialization
 function init() {
+  // Set timer
   timeRemaining = 75;
+  timer.innerHTML = timerWord + timeRemaining;
+
+  // Ensure question instance variables are empty
   currQuestion = "";
   questSolution = "";
   choiceArr = [];
+
+  // Make a clone of questions array
   questArr = structuredClone(quizQuestions);
-  timer.innerHTML = timerWord + timeRemaining;
+
+  // Hide elements not needed
   initialsEntry.setAttribute("style", "display: none");
   qCard.setAttribute("style", "display: none");
-  header.setAttribute("style", "display: flex");
-  welcome.setAttribute("style", "display: block");
   qResult.setAttribute("style", "display: none");
   highScores.setAttribute("style", "display: none");
+  header.setAttribute("style", "display: flex");
+  welcome.setAttribute("style", "display: block");
+
+  // Depopulate high score ol
   while (scoreList.hasChildNodes()) {
     scoreList.removeChild(scoreList.firstChild);
   }
   scoreText.innerHTML = "Your final score is ";
-  inputForm.reset();
 
+  // Clear initials entry form
+  inputForm.reset();
 }
 
-// Clock timer decrementer
+// Timer decrementer
 function tickDown() {
   timeRemaining--;
+
+  // Check if time has run out
   if (timeRemaining <= 0) {
     timeRemaining = 0;
     pIR.play();
@@ -114,9 +133,12 @@ function tickDown() {
   timer.innerHTML = timerWord + timeRemaining;
 }
 
+// Stops clock and ends the game
 function finishGame() {
+  // Stops the timer and saves the value
   clearInterval(timeVar);
   scoreText.innerHTML += timeRemaining;
+  timer.innerHTML = timerWord + timeRemaining;
   qCard.setAttribute("style", "display: none");
   initialsEntry.setAttribute("style", "display: block");
 }
@@ -243,7 +265,11 @@ function displayHighScores(scoresArr) {
   highScores.setAttribute("style", "display: block");
 }
 
-// Event listeners
+/*/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+//--------------------------------------Event Listeners---------------------------------------//
+/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
+
+// High scores button click
 HSButton.addEventListener("click", function(e) {
   var localScores = JSON.parse(localStorage.getItem("localScores"));
   if (localScores != null) {
@@ -261,6 +287,7 @@ HSButton.addEventListener("click", function(e) {
   highScores.setAttribute("style", "display: block");
 });
 
+// Start button click
 startButton.addEventListener("click", function(event) {
   grave.play();
   timeVar = setInterval(tickDown, 1000);
@@ -269,6 +296,7 @@ startButton.addEventListener("click", function(event) {
   changeDisplay(event)
 });
 
+// Answer selected
 choices.addEventListener("click", function(event) {
   qResult.setAttribute("style", "display: block");
   let clickedOn = event.target.nodeName;
@@ -281,15 +309,16 @@ choices.addEventListener("click", function(event) {
 });
 
 // TODO: fix this function
-choices.addEventListener("mouseenter", function(e) {
-  e.stopPropagation();
-  let mouseOver = e.target.nodeName;
-  if (mouseOver !== 'BUTTON') {
-    return;
-  }
-  qResult.setAttribute("style", "display: none")
-});
+// choices.addEventListener("mouseenter", function(e) {
+//   e.stopPropagation();
+//   let mouseOver = e.target.nodeName;
+//   if (mouseOver !== 'BUTTON') {
+//     return;
+//   }
+//   qResult.setAttribute("style", "display: none")
+// });
 
+// Initials entry button click
 submitButton.addEventListener("click", function(e) {
   e.preventDefault();
 
@@ -322,10 +351,12 @@ submitButton.addEventListener("click", function(e) {
   highScores.setAttribute("style", "display: block");
 });
 
+// Back button to home page click
 backButton.addEventListener("click", function() {
   init();
 });
 
+// Clear high scores button click
 clearScoresButton.addEventListener("click", function() {
   while (scoreList.hasChildNodes()) {
     scoreList.removeChild(scoreList.firstChild);
@@ -333,8 +364,9 @@ clearScoresButton.addEventListener("click", function() {
   localStorage.removeItem("localScores");
 });
 
-// Runs initialization of page upon page load
+/*/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+//--------------------------------------Initialization----------------------------------------//
+/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
+
+// Runs initialization of welcome screen upon page load
 init();
-
-
-
