@@ -323,33 +323,33 @@ choices.addEventListener("click", function(event) {
 });
 
 // Mouse enter for each button to remove previous answer
-// ansButton1.addEventListener("mouseenter", function(event) {
-//   // event.stopPropagation();
-//   // event.preventDefault();
-//   let mouseOver = event.currentTarget.nodeName;
-//   setTimeout(hideAnswer(mouseOver), 1000);
-// });
+ansButton1.addEventListener("mouseenter", function(event) {
+  // event.stopPropagation();
+  // event.preventDefault();
+  let mouseOver = event.currentTarget.nodeName;
+  setTimeout(hideAnswer(mouseOver), 1000);
+});
 
-// ansButton2.addEventListener("mouseenter", function(event) {
-//   event.stopPropagation();
-//   event.preventDefault();
-//   let mouseOver = event.currentTarget.nodeName;
-//   setTimeout(hideAnswer(mouseOver), 1000);
-// });
+ansButton2.addEventListener("mouseenter", function(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  let mouseOver = event.currentTarget.nodeName;
+  setTimeout(hideAnswer(mouseOver), 1000);
+});
 
-// ansButton3.addEventListener("mouseenter", function(event) {
-//   event.stopPropagation();
-//   event.preventDefault();
-//   let mouseOver = event.currentTarget.nodeName;
-//   setTimeout(hideAnswer(mouseOver), 1000);
-// });
+ansButton3.addEventListener("mouseenter", function(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  let mouseOver = event.currentTarget.nodeName;
+  setTimeout(hideAnswer(mouseOver), 1000);
+});
 
-// ansButton4.addEventListener("mouseenter", function(event) {
-//   event.stopPropagation();
-//   event.preventDefault();
-//   let mouseOver = event.currentTarget.nodeName;
-//   setTimeout(hideAnswer(mouseOver), 1000);
-// });
+ansButton4.addEventListener("mouseenter", function(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  let mouseOver = event.currentTarget.nodeName;
+  setTimeout(hideAnswer(mouseOver), 1000);
+});
 
 // Initials entry button click
 submitButton.addEventListener("click", function(event) {
