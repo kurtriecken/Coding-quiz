@@ -235,9 +235,12 @@ function changeDisplay(e) {
 
 // Generates and displays the high score screen with scores from local storage
 function displayHighScores(scoresArr) {
+  // Sets instance variables
   let highScore = 0;
   let highIdx = -1;
   let newArr = [];
+
+  // Find (up to) top 5 high scores from input array
   for (let i = 0; i < 5; i++) {
     for (let j = 0; j < scoresArr.length; j++) {
       if (scoresArr.length == 0) {
@@ -255,6 +258,8 @@ function displayHighScores(scoresArr) {
     highScore = 0;
     highIdx = -1;
   }
+
+  // Creates li element for each score; appends them to ol
   for (let idx = 0; idx < newArr.length; idx++) {
     let listItem = document.createElement("li");
     let newInit = newArr[idx].initials;
@@ -262,7 +267,16 @@ function displayHighScores(scoresArr) {
     listItem.innerHTML = `${idx+1}) ${newInit} --- ${newScore}`
     scoreList.appendChild(listItem);
   }
+
+  // Makes the scores section visible
   highScores.setAttribute("style", "display: block");
+}
+
+function hideAnswer(mouseOver) {
+  if (mouseOver !== 'BUTTON') {
+    return;
+  }
+  qResult.setAttribute("style", "display: none")
 }
 
 /*/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
@@ -270,12 +284,12 @@ function displayHighScores(scoresArr) {
 /*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
 
 // High scores button click
-HSButton.addEventListener("click", function(e) {
+HSButton.addEventListener("click", function(event) {
   var localScores = JSON.parse(localStorage.getItem("localScores"));
   if (localScores != null) {
     displayHighScores(localScores);
   }
-  e.preventDefault();
+  event.preventDefault();
   clearInterval(timeVar);
 
   // Set hidden
@@ -308,19 +322,38 @@ choices.addEventListener("click", function(event) {
   changeDisplay(event)
 });
 
-// TODO: fix this function
-// choices.addEventListener("mouseenter", function(e) {
-//   e.stopPropagation();
-//   let mouseOver = e.target.nodeName;
-//   if (mouseOver !== 'BUTTON') {
-//     return;
-//   }
-//   qResult.setAttribute("style", "display: none")
+// Mouse enter for each button to remove previous answer
+// ansButton1.addEventListener("mouseenter", function(event) {
+//   // event.stopPropagation();
+//   // event.preventDefault();
+//   let mouseOver = event.currentTarget.nodeName;
+//   setTimeout(hideAnswer(mouseOver), 1000);
+// });
+
+// ansButton2.addEventListener("mouseenter", function(event) {
+//   event.stopPropagation();
+//   event.preventDefault();
+//   let mouseOver = event.currentTarget.nodeName;
+//   setTimeout(hideAnswer(mouseOver), 1000);
+// });
+
+// ansButton3.addEventListener("mouseenter", function(event) {
+//   event.stopPropagation();
+//   event.preventDefault();
+//   let mouseOver = event.currentTarget.nodeName;
+//   setTimeout(hideAnswer(mouseOver), 1000);
+// });
+
+// ansButton4.addEventListener("mouseenter", function(event) {
+//   event.stopPropagation();
+//   event.preventDefault();
+//   let mouseOver = event.currentTarget.nodeName;
+//   setTimeout(hideAnswer(mouseOver), 1000);
 // });
 
 // Initials entry button click
-submitButton.addEventListener("click", function(e) {
-  e.preventDefault();
+submitButton.addEventListener("click", function(event) {
+  event.preventDefault();
 
   // Initials entry data validation
   if (!initials.value.trim().match(/(^[A-Z]{2,3}$)/i)) {
