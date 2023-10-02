@@ -233,6 +233,15 @@ function changeDisplay(e) {
   }
 }
 
+// Common functionality extracted for button mouse enter events
+// If mouse entered an answer button, hide previous result
+function hideAnswer(mouseOver) {
+  if (mouseOver !== 'BUTTON') {
+    return;
+  }
+  qResult.setAttribute("style", "display: none")
+}
+
 // Generates and displays the high score screen with scores from local storage
 function displayHighScores(scoresArr) {
   // Sets instance variables
@@ -272,12 +281,7 @@ function displayHighScores(scoresArr) {
   highScores.setAttribute("style", "display: block");
 }
 
-function hideAnswer(mouseOver) {
-  if (mouseOver !== 'BUTTON') {
-    return;
-  }
-  qResult.setAttribute("style", "display: none")
-}
+
 
 /*/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
 //--------------------------------------Event Listeners---------------------------------------//
@@ -324,29 +328,21 @@ choices.addEventListener("click", function(event) {
 
 // Mouse enter for each button to remove previous answer
 ansButton1.addEventListener("mouseenter", function(event) {
-  // event.stopPropagation();
-  // event.preventDefault();
   let mouseOver = event.currentTarget.nodeName;
   setTimeout(hideAnswer(mouseOver), 1000);
 });
 
 ansButton2.addEventListener("mouseenter", function(event) {
-  event.stopPropagation();
-  event.preventDefault();
   let mouseOver = event.currentTarget.nodeName;
   setTimeout(hideAnswer(mouseOver), 1000);
 });
 
 ansButton3.addEventListener("mouseenter", function(event) {
-  event.stopPropagation();
-  event.preventDefault();
   let mouseOver = event.currentTarget.nodeName;
   setTimeout(hideAnswer(mouseOver), 1000);
 });
 
 ansButton4.addEventListener("mouseenter", function(event) {
-  event.stopPropagation();
-  event.preventDefault();
   let mouseOver = event.currentTarget.nodeName;
   setTimeout(hideAnswer(mouseOver), 1000);
 });
