@@ -2,19 +2,17 @@
 
 ## Description
 
-Are you a programmer of any level? Or, do you just have an interest in coding and would like to learn more? Take my quiz! A brief quiz consisting of a series of 6 multiple-choice questions will help you learn or reinforce your codings knowledge and skills. The quiz includes a sleak, functional interface on any device and a color scheme that is clear and easy to read.
+Are you a programmer of any level? Do you just have an interest in coding and would like to learn more? Take my quiz! This brief quiz consisting of a series of 6 multiple-choice questions will help you learn or reinforce your codings knowledge and skills. The quiz includes a sleak, functional interface on any device and a color scheme that is clear and easy to read.
 
 ## Installation
 
 No installation is necessary! Follow the following links to the github repository and live site.
 
-Github repository: https://github.com/kurtriecken/Password-generator
+Github repository: https://github.com/kurtriecken/Coding-quiz
 
-Deployed site: https://kurtriecken.github.io/Password-generator/
+Deployed site: https://kurtriecken.github.io/Coding-quiz/
 
-## Usage
-
-Below is screenshot of the deployed website. 
+## Usage 
 
 ![Screenshot](./assets/screenshots/screenshot_1.png)
 
@@ -37,6 +35,8 @@ After answering the final questiong (or running out of time), you will be given 
 Finally, after submitting your initials OR clicking on the "View high scores" link at the top of the page, you will be directed to a list of the top 5 high scores. You may select to hit "Go back" and return to the main welcome page, or "Clear high scores" to erase the recorded high scores from the page and your device. See how high you can get your score!
 
 ![Screenshot](./assets/screenshots/screenshot_4.png)
+
+If the quiz does not work on your device or if you have any questions, please feel free to contact me here on GitHub.
 
 ## Credits
 
