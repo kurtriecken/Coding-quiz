@@ -32,11 +32,6 @@ header > button, p {
     text-decoration: underline;
 }
 
-#view_scores:hover {
-    color: rgb(212, 6, 40);
-    box-shadow: 0 5px 15px rgba(230, 240, 255, 0.9);
-}
-
 /* Welcome message/home page styling */
 #welcome_card p {
     font-size: larger;
@@ -156,4 +151,20 @@ ol li {
     margin: 0;
     display: flex;
     padding: 0 6px 0 3px;
+}
+
+/* Styling for different pointer devices */
+
+@media (pointer:fine) {
+    #view_scores:hover {
+        color: rgb(212, 6, 40);
+        box-shadow: 0 5px 15px rgba(230, 240, 255, 0.9);
+    }
+}
+
+@media (pointer: coarse), (pointer: none) {
+    #view_scores:active {
+        color: rgb(212, 6, 40);
+        box-shadow: 0 5px 15px rgba(230, 240, 255, 0.9);
+    }
 }
